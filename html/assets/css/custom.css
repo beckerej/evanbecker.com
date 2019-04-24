@@ -1,0 +1,118 @@
+/* Add here all your css styles (customizations) */
+
+
+.bg-img:before {
+  content: "";
+  display: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255, 0.1);
+  transition: all .1s linear;
+}
+
+.bg-img2{
+    background-image: url(../img/photos/BH2A7132.jpg) !important; 
+    background-position: center -110px !important; 
+    background-size: cover !important;
+}
+
+@media(max-width:1080px){
+    .bg-img2{
+        background-image: url(../img/photos/BH2A7132.jpg) !important; 
+        background-position: center 0px !important; 
+        background-size: cover !important;
+    }
+}
+
+.bg-img3{
+    background-image: url(../img/photos/BH2A7132.jpg) !important; 
+    background-position: center -110px !important; 
+    background-size: cover !important;
+}
+
+@media(max-width:1080px){
+    .bg-img3{
+        background-image: url(../img/photos/BH2A7132.jpg) !important; 
+        background-position: center 0px !important; 
+        background-size: cover !important;
+    }
+}
+
+.bg-img4{
+    background-image: url(../img/photos/BH2A7132.jpg) !important; 
+    background-position: center -110px !important; 
+    background-size: cover !important;
+}
+
+@media(max-width:1080px){
+    .bg-img4{
+        background-image: url(../img/photos/BH2A7132.jpg) !important; 
+        background-position: center 0px !important; 
+        background-size: cover !important;
+    }
+}
+
+.bg-img5{
+    background-image: url(../img/photos/BH2A7132.jpg) !important; 
+    background-position: center -110px !important; 
+    background-size: cover !important;
+}
+
+@media(max-width:1080px){
+    .bg-img5{
+        background-image: url(../img/photos/BH2A7132.jpg) !important; 
+        background-position: center 0px !important; 
+        background-size: cover !important;
+    }
+}
+
+.bg-img2:before {
+  content: "";
+  display: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0, 0.4);
+  transition: all .1s linear;
+}
+
+.bg-img3:before {
+  content: "";
+  display: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(51,152,220, 0.1);
+  transition: all .1s linear;
+}
+
+.bg-img4:before {
+  content: "";
+  display: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(223,160,30, 0.1);
+  transition: all .1s linear;
+}
+
+.bg-img5:before {
+  content: "";
+  display: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(75,56,50, .2);
+  transition: all .1s linear;
+}
