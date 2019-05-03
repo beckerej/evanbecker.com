@@ -1,5 +1,5 @@
 var ct = 0;
-var rubics;
+var rubiks;
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
@@ -7,22 +7,24 @@ function windowResized() {
 
 function setup() {
     CreateCanvas();
-    rubics = new Rubics(75);
+    rubiks = new Rubiks(75);
 }
 
 function draw() {
     background(166);
     tint(255, 127)
-    normalMaterial();
-    rubics.DrawUpdate();
+    //pointLight(0,0,255, 0, -500, 0)
+    //ambientLight(255);
+    
+    rubiks.DrawUpdate();
 }
 
 function mouseDragged() {
-    rubics.MouseDragged();
+    rubiks.MouseDragged();
 }
 
 function mouseReleased() {
-    rubics.MouseReleased();
+    rubiks.MouseReleased();
 }
 
 // Helper
@@ -35,43 +37,65 @@ function CreateCanvas() {
     //canv.position(windowWidth, windowHeight);
 }
 
-class Rubics {
+class Rubiks {
     constructor() {
+        this._isDragging = false;
+        this._rotateTick = 0;
         this._size = 75;
         this._paddedSize = this._size-0.5;
         this._iterations = 3;
-        this._isDragging = false;
-        this._rotateTick = 0;
     }
 
     DrawUpdate() {
-        this.Rotate();
-        this.Iterate((i, j, k)=>{
-            this.DrawBox(this.BuildPoint(i, j, k, this._size), this._paddedSize);
-        });
-    }
+        this.IdleRotate();
 
-    // helper funcs
-    Iterate(func, ...args) {
-        for(let i = -1; i < this._iterations-1; i++){
-            for(let j = -1; j < this._iterations-1; j++){
-                for(let k = -1; k < this._iterations-1; k++){
-                    func(i,j,k,args);
+        if(second()%3==0){
+            for(let i = -1; i < this._iterations-1; i++){
+                for(let j = -1; j < this._iterations-1; j++){
+                    for(let k = -1; k < this._iterations-1; k++){
+                        this.DrawBox(this.BuildPoint(i, j, k, this._size), this._paddedSize);
+                    }
                 }
+                if (i==0)
+                    rotateX(-this._rotateTick * 0.05);
+            }
+        }
+
+        else if(second()%3==1){
+            for(let i = -1; i < this._iterations-1; i++){
+                for(let j = -1; j < this._iterations-1; j++){
+                    for(let k = -1; k < this._iterations-1; k++){
+                        this.DrawBox(this.BuildPoint(k, j, i, this._size), this._paddedSize);
+                    }
+                }
+                if (i==0)
+                    rotateZ(-this._rotateTick * 0.05);
+            }
+        }
+
+        else if(second()%3==2){
+            for(let i = -1; i < this._iterations-1; i++){
+                for(let j = -1; j < this._iterations-1; j++){
+                    for(let k = -1; k < this._iterations-1; k++){
+                        this.DrawBox(this.BuildPoint(j, i, k, this._size), this._paddedSize);
+                    }
+                }
+                if (i==0)
+                    rotateY(-this._rotateTick * 0.05);
             }
         }
     }
 
     DrawBox(pos, size) {
         push();
-        translate(pos.x, pos.y, pos.z);
-        //noFill();
-        stroke(0);
-        box(size);
+            translate(pos.x, pos.y, pos.z);
+            //noFill();
+            //ambientMaterial(255)
+             this.CreateBox(size);
         pop();
     }
 
-    Rotate() {
+    IdleRotate() {
         if (!this._isDragging)
             this._rotateTick++;
         rotateX(this._rotateTick * 0.002);
@@ -89,5 +113,74 @@ class Rubics {
 
     MouseReleased() {
         this._isDragging = false;
+    }
+
+    CreateBox(size) {
+        push();
+            //scale(size)
+            translate(-size/2,-size/2,-size/2);
+        
+            push();
+                beginShape(); //bottom
+                fill("green");
+                vertex(0, 0, 0);
+                vertex(0, size, 0);
+                vertex(size, size, 0);
+                vertex(size, 0, 0);
+                endShape(CLOSE);
+
+                translate(0,0,size);
+
+                beginShape();
+                fill("yellow"); // top
+                vertex(0, 0, 0);
+                vertex(0, size, 0);
+                vertex(size, size, 0);
+                vertex(size, 0, 0);
+                endShape(CLOSE);
+            pop();
+
+            push();
+                rotateX(Math.PI/2);
+                beginShape();
+                fill("blue"); // left
+                vertex(0, 0, 0);
+                vertex(0, size, 0);
+                vertex(size, size, 0);
+                vertex(size, 0, 0);
+                endShape(CLOSE);
+
+                translate(0,0,-size)
+
+                beginShape();
+                fill("white"); // right
+                vertex(0, 0, 0);
+                vertex(0, size, 0);
+                vertex(size, size, 0);
+                vertex(size, 0, 0);
+                endShape(CLOSE);
+            pop();
+
+            push();
+                rotateY(-Math.PI/2);
+                beginShape();
+                fill("red"); // back
+                vertex(0, 0, 0);
+                vertex(0, size, 0);
+                vertex(size, size, 0);
+                vertex(size, 0, 0);
+                endShape(CLOSE);
+
+                translate(0,0,-size)
+
+                beginShape(); // front
+                fill("orange");
+                vertex(0, 0, 0);
+                vertex(0, size, 0);
+                vertex(size, size, 0);
+                vertex(size, 0, 0);
+                endShape(CLOSE);
+            pop();
+        pop()
     }
 }
